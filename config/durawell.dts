@@ -1,0 +1,136 @@
+/*
+ * Durawell DW-550 - Layout ABNT2
+ * Matriz: 10 rows x 8 columns
+ * Rows: GPIOs 6,8,17,20,22,24,100,11,104,106
+ * Cols: GPIOs 31,29,2,115,113,111,9,10
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    /* Configuração da Matriz GPIO */
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        
+        /* Rows (linhas) - GPIOs da placa nRF52840 */
+        row-gpios = <
+            &gpio0 6 GPIO_ACTIVE_HIGH   /* Row 01 */
+            &gpio0 8 GPIO_ACTIVE_HIGH   /* Row 02 */
+            &gpio0 17 GPIO_ACTIVE_HIGH  /* Row 03 */
+            &gpio0 20 GPIO_ACTIVE_HIGH  /* Row 04 */
+            &gpio0 22 GPIO_ACTIVE_HIGH  /* Row 05 */
+            &gpio0 24 GPIO_ACTIVE_HIGH  /* Row 06 */
+            &gpio0 100 GPIO_ACTIVE_HIGH /* Row 07 */
+            &gpio0 11 GPIO_ACTIVE_HIGH  /* Row 08 */
+            &gpio0 104 GPIO_ACTIVE_HIGH /* Row 09 */
+            &gpio0 106 GPIO_ACTIVE_HIGH /* Row 10 */
+        >;
+
+        /* Columns (colunas) */
+        col-gpios = <
+            &gpio0 31 GPIO_ACTIVE_HIGH  /* Col 26 */
+            &gpio0 29 GPIO_ACTIVE_HIGH  /* Col 25 */
+            &gpio0 2 GPIO_ACTIVE_HIGH   /* Col 24 */
+            &gpio0 115 GPIO_ACTIVE_HIGH /* Col 23 */
+            &gpio0 113 GPIO_ACTIVE_HIGH /* Col 22 */
+            &gpio0 111 GPIO_ACTIVE_HIGH /* Col 21 */
+            &gpio0 9 GPIO_ACTIVE_HIGH   /* Col 20 */
+            &gpio0 10 GPIO_ACTIVE_HIGH  /* Col 19 */
+        >;
+
+        /* Direção dos diodos (ajuste se necessário) */
+        diode-direction = "row-to-col";
+    };
+
+    /* Keymap Principal */
+    keymap {
+        compatible = "zmk,keymap";
+
+        default {
+            display-name = "Durawell DW-550 ABNT2";
+            
+            /* 
+             * LAYOUT ABNT2 COMPLETO
+             * Baseado no mapeamento identificado
+             * 
+             * Legenda:
+             * &kp = Key Press (tecla simples)
+             * &mt = Mod-Tap (tecla modificadora)
+             * &lt = Layer Tap (muda de camada)
+             */
+            
+            bindings = <
+                /* ROW 01 - Linha superior (números e funções) */
+                &kp ESC &kp F1 &kp F2 &kp F3 &kp F4 &kp F5 &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+                &kp BSPC &kp TAB &kp CAPS &kp LSHIFT &kp RSHIFT
+                
+                /* ROW 02 - Linha QWERTY */
+                &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS &kp EQUAL
+                &kp RET
+                
+                /* ROW 03 - Linha ASDF */
+                &kp Q &kp W &kp E &kp R &kp T &kp Y &kp U &kp I &kp O &kp P &kp LBRACKET &kp RBRACKET
+                
+                /* ROW 04 - Linha ZXCV */
+                &kp A &kp S &kp D &kp F &kp G &kp H &kp J &kp K &kp L &kp SEMICOLON &kp APOSTROPHE &kp BACKSLASH
+                
+                /* ROW 05 - Linha ZXCVB */
+                &kp Z &kp X &kp C &kp V &kp B &kp N &kp M &kp COMMA &kp DOT &kp SLASH
+                
+                /* ROW 06 - Espaço e navegação */
+                &kp SPACE &kp LCTRL &kp LALT &kp LGUI &kp RGUI &kp RALT &kp RCTRL
+                &kp LEFT &kp DOWN &kp UP &kp RIGHT
+                &kp HOME &kp END &kp PGUP &kp PGDN &kp INS &kp DEL
+                
+                /* Teclas especiais adicionais */
+                &kp PRINTSCREEN &kp SCROLLLOCK &kp PAUSE
+                &kp NUMLOCK &kp KP_DIV &kp KP_MULT &kp KP_MINUS
+                &kp KP_PLUS &kp KP_ENTER &kp KP_DOT
+            >;
+        };
+
+        /* Camada FN (teclas multimídia e controle) */
+        fn_layer {
+            display-name = "FN Layer";
+            
+            bindings = <
+                &kp F1 &kp F2 &kp F3 &kp F4 &kp F5 &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
+                &kp BSPC &kp TAB &kp CAPS &kp LSHIFT &kp RSHIFT
+                
+                &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS &kp EQUAL
+                &kp RET
+                
+                &kp Q &kp W &kp E &kp R &kp T &kp Y &kp U &kp I &kp O &kp P &kp LBRACKET &kp RBRACKET
+                
+                &kp A &kp S &kp D &kp F &kp G &kp H &kp J &kp K &kp L &kp SEMICOLON &kp APOSTROPHE &kp BACKSLASH
+                
+                &kp Z &kp X &kp C &kp V &kp B &kp N &kp M &kp COMMA &kp DOT &kp SLASH
+                
+                &kp SPACE &kp LCTRL &kp LALT &kp LGUI &kp RGUI &kp RALT &kp RCTRL
+                &kp LEFT &kp DOWN &kp UP &kp RIGHT
+                &kp HOME &kp END &kp PGUP &kp PGDN &kp INS &kp DEL
+            >;
+        };
+    };
+
+    /* Configurações de Bluetooth */
+    bluetooth {
+        enabled = true;
+        advertising {
+            name = "Durawell_DW550";
+        };
+        bonding = true;
+    };
+
+    /* Configurações de Dongle 2.4GHz */
+    dongle {
+        enabled = true;
+        protocol = "nrf52_24ghz";
+        auto_pair = true;
+    };
+};
