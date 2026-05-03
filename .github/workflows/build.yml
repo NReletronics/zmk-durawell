@@ -24,7 +24,7 @@ jobs:
       
       - name: Build firmware
         run: |
-          west build -p always -b nice_nano -- -DZMK_CONFIG=$GITHUB_WORKSPACE/config
+          west build -p always -b nice_nano zmk/app -- -DZMK_CONFIG=$GITHUB_WORKSPACE/config
       
       - name: Upload firmware
         uses: actions/upload-artifact@v4
